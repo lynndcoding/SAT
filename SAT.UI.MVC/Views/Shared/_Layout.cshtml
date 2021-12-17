@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>PolluxUI Admin</title>
+    <!-- base:css -->
+    <link rel="stylesheet" href="~/Content/vendors/typicons/typicons.css">
+    <link rel="stylesheet" href="~/Content/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    @*<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+        <link rel="stylesheet" href="cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" />*@
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <!-- End plugin css for this page -->
+    <link rel="stylesheet" href="cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+
+    @*//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js
+        //cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css*@
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="~/Content/css/vertical-layout-light/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="~/Content/images/favicon.png" />
+    <link href="~/Content/css/fontawesome.css" rel="stylesheet" />
+    <link href="~/Content/custom.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <!-- partial -->
+        @*<nav class="navbar-breadcrumb col-xl-12 col-12 d-flex flex-row p-0">*@
+        <nav class="navbar col-xl-12 col-12 d-flex flex-row p-0">
+
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <ul class="navbar-nav mr-lg-2">
+                    <li class="nav-item ml-0">
+                        <h4 class="mb-0">Dashboard</h4>
+                    </li>
+                    <li class="nav-item">
+                        <div class="d-flex align-items-baseline">
+                            <p class="mb-0">Main</p>
+                            <i class="typcn typcn-chevron-right"></i>
+                            <p class="mb-0">Main Dashboard</p>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-search d-none d-md-block mr-0">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search..." aria-label="search" aria-describedby="search">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="search">
+                                    <i class="typcn typcn-zoom"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_settings-panel.html -->
+            
+            <!-- partial -->
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Home")">
+                            @*<i class="typcn typcn-device-desktop menu-icon"></i>*@
+                            <i class="typcn typcn-device-desktop menu-icon"></i>
+                            <span class="menu-title">Main</span>
+                            @*<div class="badge badge-danger">new</div>*@
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Contact", "Home")">
+                            @*<i class="typcn typcn-mortar-board menu-icon"></i>*@
+                            <i class="typcn typcn-contacts menu-icon"></i>
+                            <span class="menu-title">Contact</span>
+                        </a>
+                    </li>
+
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin") || User.IsInRole("Scheduler"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Enrollments")">
+                                <i class="typcn typcn-mortar-board menu-icon"></i>
+                                <span class="menu-title">Enrollment</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "ScheduledClasses")">
+                                <i class="typcn typcn-mortar-board menu-icon"></i>
+                                <span class="menu-title">Scheduled Class</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Students")">
+                                <i class="typcn typcn-mortar-board menu-icon"></i>
+                                <span class="menu-title">Student</span>
+                            </a>
+                        </li>
+
+                    }
+
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Courses")">
+                                <i class="typcn typcn-mortar-board menu-icon"></i>
+                                <span class="menu-title">Courses</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "StudentStatus")">
+                                <i class="typcn typcn-mortar-board menu-icon"></i>
+                                <span class="menu-title">Student Status</span>
+                            </a>
+                        </li>
+                    }
+                    @Html.Partial("_LoginPartial")
+                </ul>
+            </nav>
+            <!-- partial -->
+            @RenderBody()
+
+        </div>
+        <div class="clearfix">
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <footer class="footer">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020 <a href="https://www.bootstrapdash.com/" class="text-muted" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
+                            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center text-muted">Free <a href="https://www.bootstrapdash.com/" class="text-muted" target="_blank">Bootstrap dashboard</a> templates from Bootstrapdash.com</span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- base:js -->
+    <script src="~/Content/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <script src="~/Content/vendors/chart.js/Chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/js/off-canvas.js"></script>
+    <script src="~/Content/js/hoverable-collapse.js"></script>
+    <script src="~/Content/js/template.js"></script>
+    <script src="~/Content/js/settings.js"></script>
+    <script src="~/Content/js/todolist.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="~/Content/js/dashboard.js"></script>
+    <!-- End custom js for this page-->
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
+

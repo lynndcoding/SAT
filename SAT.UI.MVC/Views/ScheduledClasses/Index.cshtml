@@ -1,0 +1,81 @@
+﻿@model IEnumerable<SAT.DATA.EF.ScheduledClass>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <h2 class="newview">@ViewBag.Title</h2>
+
+    @if (User.IsInRole("Admin") || User.IsInRole("Scheduler"))
+    {
+    <p>
+        @Html.ActionLink("Create New", "Create", "ScheduledClasses", null, new { @class = "btn btn-primary" })
+    </p>
+    }
+
+    <div class="container">
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InstructorName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Courses.CourseName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ScheduledClassStatus.SCSName)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InstructorName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Courses.CourseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ScheduledClassStatus.SCSName)
+                    </td>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Scheduler"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ScheduledClassId }, new { @class = "btn btn-warning" }) 
+                            @Html.ActionLink("Details", "Details", new { id = item.ScheduledClassId }, new { @class = "btn btn-info" }) 
+                        </td>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ScheduledClassId }, new { @class = "btn btn-danger" })
+                        </td>
+                    }
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

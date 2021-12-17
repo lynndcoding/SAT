@@ -1,0 +1,89 @@
+﻿@model SAT.DATA.EF.Course
+
+@{
+    ViewBag.Title = "Reactivate";
+}
+
+<div class="container">
+    <h2 class="newview">@ViewBag.Title</h2>
+
+    @if (Model.IsActive)
+    {
+        <h3 class="alert alert-danger">Are you sure you want to @(Model.IsActive ? "Deactivate" : "Activate") @Model.CourseName?</h3>
+    }
+    else
+    {
+        <h3 class="alert alert-primary">Are you sure you want to @(Model.IsActive ? "Deactivate" : "Activate") @Model.CourseName?</h3>
+    }
+    <div>
+        <h4 class="newview"></h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CourseName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CourseDescription)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CourseDescription)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreditHours)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreditHours)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Curriculum)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Curriculum)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsActive)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                @if (Model.IsActive)
+                {
+                    <input type="submit" value="Deactivate" class="btn btn-danger" />
+                }
+                else
+                {
+                    <input type="submit" value="Reactivate" class="btn btn-primary" />
+                }
+                @Html.ActionLink("Cancel", "Index", "Courses", null, new { @class = "btn btn-warning" })
+
+            </div>
+        }
+    </div>
+</div>
